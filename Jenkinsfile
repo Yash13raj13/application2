@@ -1,22 +1,32 @@
 pipeline {
     agent any
 
+    environment {
+        NODE_ENV = 'development'
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Yash13raj13/node-js-sample.git'
+                git(
+                    url: 'https://github.com/Yash13raj13/node-js-sample.git',
+                    branch: 'master',
+                    credentialsId: 'github-creds' // This is your GitHub PAT credential ID
+                )
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                bat 'npm install'
+                echo 'Installing dependencies...'
+                sh 'npm install'
             }
         }
 
         stage('Run App') {
             steps {
-                bat 'node app.js'
+                echo 'Starting application...'
+                sh 'node app.js'
             }
         }
     }
