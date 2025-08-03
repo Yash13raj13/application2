@@ -2,27 +2,21 @@ pipeline {
     agent any
 
     stages {
-        stage('Install') {
+        stage('Checkout') {
             steps {
-                sh 'npm install'
+                git 'https://github.com/Yash13raj13/node-js-sample.git'
             }
         }
 
-        stage('Build') {
+        stage('Install Dependencies') {
             steps {
-                sh 'npm run build || echo "No build step"'
+                bat 'npm install'
             }
         }
 
-        stage('Test') {
+        stage('Run App') {
             steps {
-                sh 'npm test || echo "No tests defined"'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deployment simulated'
+                bat 'node app.js'
             }
         }
     }
