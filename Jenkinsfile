@@ -1,26 +1,22 @@
 pipeline {
     agent any
 
-    environment {
-        NODE_ENV = 'development'
-    }
-
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/Yash13raj13/application2.git'
+                git url: 'https://github.com/Yash13raj13/application2.git', branch: 'master'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                sh 'npm install'
+                bat 'npm install'
             }
         }
 
         stage('Run App') {
             steps {
-                sh 'npm start'
+                bat 'npm start'
             }
         }
     }
